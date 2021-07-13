@@ -54,9 +54,9 @@ git push -u origin main(or master) # push again
 
 #### 开源许可证书
 
-[引用自阮一峰博客]: http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html	"block"
+[引用自阮一峰博客](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html )
 
-
+![本地备份](D:\notebook\my_git_notebook\free_software_licenses.png)
 
 
 
