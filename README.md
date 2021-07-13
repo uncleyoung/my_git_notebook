@@ -37,7 +37,7 @@ git diff # or git diff xxx # 列出区别
 # 准备生成密匙（私、公）
 ssh-keygen -t rsa -C "youremail@example.com" 
 
-# 一直选yes或继续即可，最后一般在 ~/.ssh/id_rsa.pub 中存放公钥。
+# 一直选yes或继续即可，最后一般在 ~/.ssh/id_rsa.pub 中存放公钥。（windows的git可能默认生成在/c/Users/xx/.ssh/xxx，生成指令会有打印提示）
 # 将公钥（注意不包含最后的邮箱），设置到对应平台（github、gitee或公司内部服务器）的配置中即可。
 # github、gitee等，一般都在setting中有ssh公钥添加的地方，随便找一找就能找到。
 
