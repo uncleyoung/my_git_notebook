@@ -52,6 +52,12 @@ git push -u origin main(or master) # push again
 
   
 
+#### 开源许可证书
+
+[引用自阮一峰博客]: http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html	"block"
+
+
+
 
 
 #### matching or simple mode, when push.
