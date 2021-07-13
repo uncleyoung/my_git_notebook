@@ -8,6 +8,9 @@ Only take notes of very common usage.
 # 第一次使用会提示你填写邮箱和用户名，根据提示填写就可以了。没必要记下来了。
 # ...
 
+# Init a git. 进入到项目目录里，注意有个点
+git init .
+
 # 提交所有改变
 git add . # or git add ./
 git commit -m "my comments"
@@ -23,6 +26,30 @@ git reset --hard xxx # xxx是编号或者标签
 # other
 git log # 列出所有提交和注释
 git diff # or git diff xxx # 列出区别
+```
+
+#### .gitignore 不起作用
+
+一般是它只能忽略未跟踪的文件，所以你已经提交过，然后再加进来规则是不行的。
+
+- 要么重新重头初始化git并提交，适用于刚刚建立的项目。
+
+- 要么尝试将需要忽略的文件从版本追踪中删除，如下
+
+  ```shell
+  git rm --cached xxx git add xxx git commit -m "rm xxx to unversion it"
+  ```
+
+##### 一般用法
+
+```shell
+# this is comment
+*.o # 通配符忽略某一类型文件
+!*.cpp # 不要忽略
+/filefolder/ # 忽略特定目录
+filefolder/ # 忽略所有叫filefoler的目录
+/filefolder/app.bin # 忽略某目录下某文件, or /filefolder/*.bin ?
+.DS_Store # 忽略mac下特别烦人的隐藏文件
 ```
 
 
