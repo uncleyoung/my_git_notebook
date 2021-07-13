@@ -105,6 +105,24 @@ git push origin --tags # 提交所有的tag
 git push origin some_specific_tag_name # 提交某一特定tag
 ```
 
+#### 文件模式改变 100644 to 100755
+
+当工作环境经常在windows/ubuntu/mac之间切换时，git如果严格比较，经常会发生文件mode改变的情况，例如下面这样
+
+```shell
+# 改变示例
+uncledeMacBook-Pro-2:b9201_apps uncle$ git diff .gitignore 
+diff --git a/.gitignore b/.gitignore
+old mode 100644
+new mode 100755
+```
+
+需要设置git不去比对文件mode
+
+```shell
+git config --add core.filemode false
+```
+
 
 
 #### Git嵌套问题
