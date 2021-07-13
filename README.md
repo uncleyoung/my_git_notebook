@@ -17,6 +17,9 @@ git tag -n # 列出所有tag，包括对应的comment
 git tag new_tag_name # 添加
 git tag -d tag_to_delete # 删除
 
+# 回退（强制覆盖本地）
+git reset --hard xxx # xxx是编号或者标签
+
 # other
 git log # 列出所有提交和注释
 git diff # or git diff xxx # 列出区别
@@ -66,6 +69,15 @@ git remote rm origin_name
 git remote set-url git@xxx.com:name/xxx.git
 ```
 
+#### 提交tag
+
+好像一般的push，到远程的不会包含本地已经打上的tag信息。
+
+```shell
+git push origin --tags # 提交所有的tag
+git push origin some_specific_tag_name # 提交某一特定tag
+```
+
 
 
 #### Git嵌套问题
@@ -90,7 +102,6 @@ git push -u origin main(or master) # push again
   ```shell
   ## 经实践，这套方法虽然可以，但并不好用。
   ```
-  
 
 > ! 结论：尽量不要嵌套git，项目扁平组织，在本地分别clone。实在有必要需要母项目时，母项目可以事先用 gitignore 忽略子项目目录，然后在母项目中clone。如果一直有remote，也可以采用submodule模式。
 
