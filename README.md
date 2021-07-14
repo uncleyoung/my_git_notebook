@@ -154,6 +154,8 @@ git push -u origin main(or master) # push again
 
 #### 文件过大问题
 
+很多git托管平台是限制上传的单个文件大小的，所以可能会发生这个问题。解决如下：
+
 ```shell
 # 查询最大的10个文件
 git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10
