@@ -96,6 +96,8 @@ git remote rm origin_name
 git remote set-url git@xxx.com:name/xxx.git
 ```
 
+
+
 #### 提交tag
 
 好像一般的push，到远程的不会包含本地已经打上的tag信息。
@@ -105,22 +107,36 @@ git push origin --tags # 提交所有的tag
 git push origin some_specific_tag_name # 提交某一特定tag
 ```
 
-#### 文件模式改变 100644 to 100755
 
-当工作环境经常在windows/ubuntu/mac之间切换时，git如果严格比较，经常会发生文件mode改变的情况，例如下面这样
+
+#### 文件改动，模式改变 old mode 100755 new mode 100644, or vice versa
+
+当工作环境经常在windows/ubuntu/mac之间切换时，可能会发生。
+
+其中一个主要因素是windows的git不支持+x的文件模式，所以在windows下的git bash或GUI，可能会提示文件修改（模式改变），这时如果你继续commit，甚至push，就会连锁反应导致其它机器（linux/mac）拉取后又提示文件模式又被修改成了windows的模式。
+
+如果想要保留文件权限，解决思路：
+
+- !一定不要在windows端的git上commit或push！
+- 在linux端，首先设回true（如果已经改过） `git config --local core.filemode true`
+- 在linux端，reset 回最新的版本，用`git status`检查是否确实清理干净了。
+- 在linux端，再将filemode设置为false `git config --local core.filemode false`
+- 这时可以回到windows端，用`git status`检查一下是否可以了。
+- ！注意，一定要清理后，filemode设为false之后，才能在windows端提交任何改动，这时git才会忽略文件模式的问题。
+- 如果是反过来，以windows端某特有文件格式为主，也是一样的道理。
+
+>optional: 或者涉及到+x的权限问题，全部在linux端操作，不用用windows的git。
+
+> 另外：当上述上传之后，在拉取端，可以用mac拉取，默认的core.filemode是false的（或者是跟随上传的），这样直接可用。
+>
+> 如果用linux拉取，好像拉下来的core.filemode默认是true，还需要手动再改一下。
 
 ```shell
-# 改变示例
-uncledeMacBook-Pro-2:b9201_apps uncle$ git diff .gitignore 
-diff --git a/.gitignore b/.gitignore
-old mode 100644
-new mode 100755
-```
+# 强迫症请注意，不要轻易使用--add，这会导致多出好几个一样的字段。
+# git config --add core.filemode false 不要用这个，除非字段里没有
+# 如果已经添加了，导致了多个重名字段，用 git config --local unset-all core.filemode 清除
 
-需要设置git不去比对文件mode
-
-```shell
-git config --add core.filemode false
+# 其它git config用法，可以打help或者随便打个错误指令看下帮助说明就明白了。
 ```
 
 
