@@ -1,8 +1,10 @@
 ## Preface
 
-Only take notes of very common usage.
+随笔记录最常见的用法，以及工作中遇到的小问题，以做参考和备忘。
 
 ## Local Usage
+
+### 常见用法
 
 ```shell
 # 第一次使用会提示你填写邮箱和用户名，根据提示填写就可以了。没必要记下来了。
@@ -28,19 +30,9 @@ git log # 列出所有提交和注释
 git diff # or git diff xxx # 列出区别
 ```
 
-#### .gitignore 不起作用
+### 忽略项目 .gitignore 
 
-一般是它只能忽略未跟踪的文件，所以你已经提交过，然后再加进来规则是不行的。
-
-- 要么重新重头初始化git并提交，适用于刚刚建立的项目。
-
-- 要么尝试将需要忽略的文件从版本追踪中删除，如下
-
-  ```shell
-  git rm --cached xxx git add xxx git commit -m "rm xxx to unversion it"
-  ```
-
-##### 一般用法
+#### 一般用法
 
 ```shell
 # this is comment
@@ -52,11 +44,55 @@ filefolder/ # 忽略所有叫filefoler的目录
 .DS_Store # 忽略mac下特别烦人的隐藏文件
 ```
 
+#### 不起作用
+
+一般是它只能忽略未跟踪的文件，所以你已经提交过，然后再加进来规则是不行的。
+
+- 要么重新重头初始化git并提交，适用于刚刚建立的项目。
+
+- 要么尝试将需要忽略的文件从版本追踪中删除，如下
+
+  ```shell
+  git rm --cached xxx git add xxx git commit -m "rm xxx to unversion it"
+  ```
+
+#### 忽略所有，除了指定的（子）文件或文件夹
+
+>换一种说法：只管理希望跟踪的项目。
+>
+>一般在特别大的项目，不希望、无法、没有必要提交整个内容；工作中只维护工作产出的情况。
+
+方式一：尽量使用通配符，写法简单一些
+
+```shell
+# example of exclude all but some folder, and ignore items inside that folder
+# 下面示意：只跟踪 /projects/common/apps 文件夹内所有内容，同时忽略其中的 .o .d 文件
+*
+!*/
+!/projects/common/apps/** # 忽略指定的文件夹。** 可以忽略文件夹下所有，用一个*只忽略文件夹下文件
+*.o # 再次排除不需要跟踪的东西
+*.d
+```
+
+方式二：使用忽略对，逐步指定文件，写法繁琐一些
+
+```shell
+# example of another method (exclude end with "/" or not does not matter.)
+# 下面示意：只跟踪 /projects/common/apps 文件夹内所有内容，同时忽略其中的 .o 文件
+/*
+!/projects
+/projects/*
+!/projects/common
+/projects/common/*
+!/projects/common/apps
+*.o # 再次忽略不需要跟踪的项目
+```
+
 
 
 ## Remote Usage
 
-#### 一般流程
+### 一般流程
 
 准备密匙
 
@@ -98,7 +134,7 @@ git remote set-url git@xxx.com:name/xxx.git
 
 
 
-#### 提交tag
+### 提交tag
 
 好像一般的push，到远程的不会包含本地已经打上的tag信息。
 
@@ -109,7 +145,7 @@ git push origin some_specific_tag_name # 提交某一特定tag
 
 
 
-#### 文件改动，模式改变 old mode 100755 new mode 100644, or vice versa
+### 文件改动，模式改变 old mode 100755 new mode 100644, or vice versa
 
 当工作环境经常在windows/ubuntu/mac之间切换时，可能会发生。
 
@@ -141,7 +177,7 @@ git push origin some_specific_tag_name # 提交某一特定tag
 
 
 
-#### Git嵌套问题
+### Git嵌套问题
 
 如果已经发生，先清理缓存，把嵌套的子目录解放出来。
 
@@ -168,7 +204,7 @@ git push -u origin main(or master) # push again
 
 
 
-#### 文件过大问题
+### 文件过大问题
 
 很多git托管平台是限制上传的单个文件大小的，所以可能会发生这个问题。解决如下：
 
@@ -202,7 +238,7 @@ git push --force --all
 
 
 
-#### Push的模式问题
+### Push的模式问题
 
 github用push提交，首次可能会提示 matching 模式还是 simple 模式。自己看提示说明就好了。
 
@@ -210,7 +246,7 @@ matching是老模式，所有branch都提交。simple是新的，只提交当前
 
 
 
-#### 开源许可证书
+### 开源许可证书
 
 [引用自阮一峰博客](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html )
 
