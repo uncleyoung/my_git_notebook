@@ -88,6 +88,59 @@ filefolder/ # 忽略所有叫filefoler的目录
 *.o # 再次忽略不需要跟踪的项目
 ```
 
+### 合并Merge
+
+例如：目前的项目，基于一份庞大的SDK开发，我们的代码分布在这个SDK之中。无论是从效率还是可行性上考虑，我们无法用git远程托管整个SDK，而是用git托管我们的代码（或配置文件、脚本等）。当SDK发布了新版本后，我们需要进行在这种情况下的merge。
+
+- 合并需要真的产生分支才可以合并，否则只是修改commit的指针。
+
+- 需要注意commit的时间，很多规则以此为准。
+
+方式一：通过remote，需要联网。
+
+1. 将老SDK下的代码进行最后的commit-push，保持最新。
+2. 准备好新的SDK，准备好.gitignore 和 配置好git config。add-commit 这个干净的sdk。
+3. pull刚提交的branch-commit。手动合并所有冲突。>>>>>> ... ==== <<<<<
+
+方式二：直接拷贝git文件，无需联网。
+
+1. 先将老SDK和其代码进行最后的commit，保持干净。
+2. 新建分支，并在此上尽量回退到最初版本，保证排除后续merge产生的复杂冲突情况。
+3. 将老.git文件夹和.gitignore拷贝到新SDK下。直接add-commit，手动产生分支岔路。
+4. 在临时分支上merge，同上。(也许需要在主分支上随便提交个东西，让主分支commit时间新于临时分支？)
+
+> ! 如果SDK没有更新，简单的方式是直接拷贝.git+.gitignore，然后git reset --hard xxx 即可。
+
+#### "无效"Merge举例
+
+```shell
+# 这样其实不算产生岔路，实际上还是在一条线上，无法“真的” merge (fast-forward)
+mater:: *commit1 - *commit2 ------ *merge(commit5) # 实际就是commit3，并不是3和2的merge
+temp ::                 \- *commit3 -/
+# 这样才算是岔路
+mater:: *commit1 - *commit2 - *commit6 - *merge(commit5)
+temp ::                 \- *commit3 -----/
+```
+
+#### 冲突直接替换 --theirs or --ours
+
+当有很多冲突，并且你明确知道可以使用哪个版本，一个个手动修文件内容要累死。可以直接覆盖指定使用哪个版本。
+
+```shell
+# 在冲突状态下
+git checkout --theirs . # 或指定某文件（们）
+git checkout --ours xxx.dts 
+git add and commit xxx
+```
+
+
+
+#### 使用gitk查看分支路径
+
+```shell
+gitk --all # 也可以用 git log --graph --all 只是git更好看更丰富
+```
+
 
 
 ## Remote Usage
@@ -130,6 +183,19 @@ git merge
 git remote rm origin_name
 # 切换, 直接修改(或者按照上面的，先删除在添加也可)
 git remote set-url git@xxx.com:name/xxx.git
+```
+
+
+
+### 删除远程commit
+
+```shell
+# 1.通过找到想要退回到的哪个commit_id
+git log
+# 2.本地代码变成某个提交记录时刻的代码
+git reset --hard commit_id
+# 3.推送到服务器，一定要加 --force 参数 "master":对应的分支即可
+git push origin HEAD:master --force
 ```
 
 
