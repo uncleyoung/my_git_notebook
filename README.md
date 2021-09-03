@@ -30,6 +30,13 @@ git log # 列出所有提交和注释
 git diff # or git diff xxx # 列出区别
 ```
 
+##### commit 换行
+
+```shell
+git commit -m "1. 第一行 
+2. 第二行" // 步骤二: 按Enter 输入第二行
+```
+
 ### 忽略项目 .gitignore 
 
 #### 一般用法
