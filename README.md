@@ -173,6 +173,21 @@ git log --graph --all # to review the result
 git pull origin master && git push origin master # push back to remote.
 ```
 
+### 修改指定commit的提交信息
+
+和删除commit一样，通过rebase可以实现。如果只需修改最近提交的，则可以直接使用 `git commit --amend`
+
+``` shell
+# 大致流程（也许可能也需要同步远端，如果需要流程就和上面一样）
+git rebase -i id_before_target
+# replace target commit from 'drop' to 'edit'
+# save and exit editor
+git commit --amend
+git rebase --continue
+```
+
+
+
 
 
 ## Remote Usage
