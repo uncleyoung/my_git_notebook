@@ -150,6 +150,31 @@ gitk --all # 也可以用 git log --graph --all 只是git更好看更丰富
 
 
 
+### 删除指定commit，以及rebase的陷阱
+
+**如果有远程提交，远程先回退删除项之前** （注意先备份好最新的commit-id，后面好回来）。如果不这么做，rebase时会不断冲突，merge等，最后全部改好，最后整个分支也会多形成一个分叉，变得十分混乱。
+
+使用rebase时，会经常出现冲突，如果明确需要最新的版本，可以使用 `git checkout . --ours` 快速覆盖到最新版本。
+
+```shell
+## 一般大致流程
+git reset --hard id_before_tobe_delete # before the commit you wanna delete
+git push --force # delete remote commits too
+git reset --hard the_latest_one # back to latest commit
+git rebase -i id_before_tobe_delete 
+# ... edit file to delete ones you wann.
+# !!! use ctrl+x -> shift+y -> enter to save and exit gnu editor.
+# ! if could not apply xxxx ....
+git checkout . --ours
+git add .
+git rebase --continue # if confict/merge still exist, continue these 3 steps.
+...
+git log --graph --all # to review the result
+git pull origin master && git push origin master # push back to remote.
+```
+
+
+
 ## Remote Usage
 
 ### 一般流程
