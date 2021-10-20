@@ -186,6 +186,15 @@ git commit --amend
 git rebase --continue
 ```
 
+### 删除远程tags
+
+```shell
+git tag -d xxx
+git tag -d yyy
+git push origin :ref/tags/xxx
+git push origin :ref/tags/yyy
+```
+
 
 
 
