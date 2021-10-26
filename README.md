@@ -191,8 +191,8 @@ git rebase --continue
 ```shell
 git tag -d xxx
 git tag -d yyy
-git push origin :ref/tags/xxx
-git push origin :ref/tags/yyy
+git push origin :refs/tags/xxx
+git push origin :refs/tags/yyy
 ```
 
 
