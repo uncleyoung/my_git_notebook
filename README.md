@@ -243,6 +243,40 @@ git remote set-url git@xxx.com:name/xxx.git
 
 
 
+### 添加多个公钥
+
+```shell
+# tested on windows(git bash) and mac
+#
+# 在 ~/.ssh/ 下添加 config 文件 ~/.ssh/config
+# 内容范例如下
+
+# 老的
+Host me.gitee.com
+        HostName gitee.com
+        User me
+        IdentityFile ~/.ssh/id_rsa
+# 新添加的
+Host sk.gitee.com
+        HostName gitee.com
+        User sk_work
+        IdentityFile ~/.ssh/id_rsa_sensethink
+
+# 创建新的公钥（和上面的顺序无所谓）
+ssh-keygen -t rsa -C "123457@qq.com" -f ~/.ssh/id_rsa_company
+
+# 在github或gitee上添加上面新的公钥
+...
+
+# 测试是否添加成功，出现 successfully 等字样，代表添加成功
+ssh -T git@sk.gitee.com
+
+# clone 代码，也要加上前面的sk字段区分，示例如下
+git clone git@sk.gitee.com:xxx/xxx.git
+```
+
+
+
 ### 删除远程commit
 
 ```shell
