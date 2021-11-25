@@ -36,6 +36,15 @@ git diff # or git diff xxx # 列出区别
 git commit -m "1. 第一行 
 2. 第二行" // 步骤二: 按Enter 输入第二行
 ```
+##### 中文显示乱码
+
+```shell
+git config --global core.quotepath false
+```
+
+
+
+
 
 ### 忽略项目 .gitignore 
 
