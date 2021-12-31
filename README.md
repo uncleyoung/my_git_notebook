@@ -44,6 +44,12 @@ git config --global core.quotepath false
 
 
 
+### 关于Diff和Merge的工具 difftool mergetool
+
+一个推荐的跨平台工具 meld。可以直接用 apt-get install meld 安装
+
+一个用法的简单参考：https://newbedev.com/setting-up-and-using-meld-as-your-git-difftool-and-mergetool
+
 
 
 ### 忽略项目 .gitignore 
@@ -249,6 +255,12 @@ git remote rm origin_name
 # 切换, 直接修改(或者按照上面的，先删除在添加也可)
 git remote set-url git@xxx.com:name/xxx.git
 ```
+
+
+
+## GitFlow 团队工作流程
+
+可以在网上随意搜到相关资料，比如可以可以简单参考这个：https://segmentfault.com/a/1190000021929465
 
 
 
