@@ -258,11 +258,13 @@ git remote set-url git@xxx.com:name/xxx.git
 
 
 
-## GitFlow 团队工作流程
+### GitFlow 团队工作流程
 
 可以在网上随意搜到相关资料，比如可以可以简单参考这个：https://segmentfault.com/a/1190000021929465
 
+### 清除本地远端缓存
 
+`git remote prune origin`
 
 ### 添加多个公钥
 
